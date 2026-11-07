@@ -1,0 +1,13 @@
+classification,category,economies_master,economies_sample_A,economies_sample_B,coverage_A_pct,coverage_B_pct,annual_records_master,annual_records_sample_B
+Overall,All economies,224,101,98,45.089285714285715,43.75,249141,215130
+Income group,High income,87,50,49,57.47126436781609,56.32183908045977,189355,158774
+Income group,Low income,25,5,4,20.0,16.0,194,59
+Income group,Lower middle income,50,17,17,34.0,34.0,11487,10241
+Income group,Unclassified,8,0,0,0.0,0.0,249,0
+Income group,Upper middle income,54,29,28,53.7037037037037,51.851851851851855,47856,46056
+Geographical region,Africa,54,14,14,25.925925925925927,25.925925925925927,3740,2993
+Geographical region,Americas,49,15,14,30.612244897959183,28.571428571428573,85032,83202
+Geographical region,Asia,50,32,31,64.0,62.0,72679,70061
+Geographical region,Europe,46,39,38,84.78260869565217,82.6086956521739,76222,57903
+Geographical region,Oceania,20,1,1,5.0,5.0,9959,971
+Geographical region,Unclassified,5,0,0,0.0,0.0,1509,0
