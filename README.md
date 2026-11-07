@@ -1,7 +1,10 @@
 # How Robust Are National Rankings of Highly Cited Scientists? Research Capacity Adjustment and Data Availability
 
+[![DOI](https://zenodo.org/badge/1448998565.svg)](https://doi.org/10.5281/zenodo.24027736)
+
 **Author:** Andy A. Acosta-Monterrosa  
-**Repository:** [https://github.com/AndyPaaai/global-scientific-inequality-research-capacity](https://github.com/AndyPaaai/global-scientific-inequality-research-capacity)
+**Repository:** [https://github.com/AndyPaaai/global-scientific-inequality-research-capacity](https://github.com/AndyPaaai/global-scientific-inequality-research-capacity)  
+**Zenodo DOI:** [https://doi.org/10.5281/zenodo.24027736](https://doi.org/10.5281/zenodo.24027736)
 
 ---
 
@@ -183,9 +186,11 @@ The pre-computed supplementary tables are located in `Supplementary Material/`:
 
 ## Citation
 
-If you use this code, data workflow, or supplementary material, please cite the accompanying manuscript and the primary data sources (Ioannidis v9 2026, UNESCO UIS, and World Bank WDI):
+[![DOI](https://zenodo.org/badge/1448998565.svg)](https://doi.org/10.5281/zenodo.24027736)
 
-> Acosta-Monterrosa AA. *How Robust Are National Rankings of Highly Cited Scientists? Research Capacity Adjustment and Data Availability*. 2026. GitHub repository: [https://github.com/AndyPaaai/global-scientific-inequality-research-capacity](https://github.com/AndyPaaai/global-scientific-inequality-research-capacity)
+If you use this code, data workflow, or supplementary material, please cite the accompanying manuscript, the archived Zenodo release, and the primary data sources (Ioannidis v9 2026, UNESCO UIS, and World Bank WDI):
+
+> Acosta-Monterrosa AA. *How Robust Are National Rankings of Highly Cited Scientists? Research Capacity Adjustment and Data Availability* [Data set and code]. Zenodo; 2026. DOI: [https://doi.org/10.5281/zenodo.24027736](https://doi.org/10.5281/zenodo.24027736). GitHub repository: [https://github.com/AndyPaaai/global-scientific-inequality-research-capacity](https://github.com/AndyPaaai/global-scientific-inequality-research-capacity)
 
 ---
 
