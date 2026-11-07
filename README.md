@@ -42,13 +42,12 @@ global-scientific-inequality-research-capacity/
     │   ├── Table_3_maxlog_career_2025_pubs_since_1788_wopp_extracted_202608.xlsx
     │   └── Table_3_maxlog_singleyr_2025_pubs_since_1788_wopp_extracted_202608.xlsx
     ├── unesco_uis/
-    │   └── indicator-data-export_EXPGDP.TOT_RESDEN.INHAB.TFTE/
-    │       ├── data.csv                                            # UNESCO UIS SDG 9.5.1 & 9.5.2 extract
-    │       ├── disaggregations.csv
-    │       ├── footnotes.csv
-    │       ├── glossary-terms.csv
-    │       ├── indicators.csv
-    │       └── README.md
+    │   ├── data.csv                                                # UNESCO UIS SDG 9.5.1 & 9.5.2 extract
+    │   ├── disaggregations.csv
+    │   ├── footnotes.csv
+    │   ├── glossary-terms.csv
+    │   ├── indicators.csv
+    │   └── README.md
     └── world_bank/
         ├── GDP_per_capita_PPA/
         │   ├── API_NY.GDP.PCAP.PP.KD_DS2_en_csv_v2_1629.csv        # WDI GDP per capita, PPP (constant 2021 international $)
@@ -78,7 +77,7 @@ All raw input snapshots used in the manuscript are staged under `data/`:
    - Additional companion files from Version 9 (`Table_2_*`, `Table_3_*`, and FAQ documentation) are included in `data/ioannidis_v9_2026/` for completeness.
 
 2. **UNESCO Institute for Statistics (UIS):**  
-   SDG Indicator 9.5.1 — *Research and development expenditure as a proportion of GDP* (`EXPGDP.TOT`) and SDG Indicator 9.5.2 — *Researchers (in full-time equivalent) per million inhabitants* (`RESDEN.INHAB.TFTE`), located in `data/unesco_uis/indicator-data-export_EXPGDP.TOT_RESDEN.INHAB.TFTE/data.csv`. Most recent available observations within **2019–2023** were selected independently per economy and indicator. Portal: [https://uis.unesco.org/](https://uis.unesco.org/)
+   SDG Indicator 9.5.1 — *Research and development expenditure as a proportion of GDP* (`EXPGDP.TOT`) and SDG Indicator 9.5.2 — *Researchers (in full-time equivalent) per million inhabitants* (`RESDEN.INHAB.TFTE`), located in `data/unesco_uis/data.csv`. Most recent available observations within **2019–2023** were selected independently per economy and indicator. Portal: [https://uis.unesco.org/](https://uis.unesco.org/)
 
 3. **World Bank — World Development Indicators (WDI):**  
    - `NY.GDP.PCAP.PP.KD`: GDP per capita, PPP (constant 2021 international dollars) for reference year **2023** (`data/world_bank/GDP_per_capita_PPA/API_NY.GDP.PCAP.PP.KD_DS2_en_csv_v2_1629.csv`).
