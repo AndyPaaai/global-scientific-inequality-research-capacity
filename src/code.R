@@ -1,6 +1,7 @@
 # =============================================================================
-# How Robust Are National Rankings of Highly Cited Scientists?
-# Research Capacity Adjustment and Data Availability
+# National rankings of highly cited scientists depend on how countries are compared
+# Authors: Andy A. Acosta-Monterrosa, Juan David Reyes-Duque,
+#          Sulaiman Kalokoh, Ivan David Lozada-Martinez
 # Reproducible analysis script for the manuscript (2026)
 # =============================================================================
 # Run from a clean R session after placing the ORIGINAL downloaded inputs under
@@ -318,8 +319,8 @@ coverage_overall <- tibble(
   annual_records_master = sum(sample_all$n_anual),
   annual_records_sample_B = sum(B$n_anual)
 )
-S1 <- bind_rows(coverage_overall, coverage_income, coverage_region)
-save_csv(S1, "Supplementary_Table_S1.csv", SUPP)
+S2 <- bind_rows(coverage_overall, coverage_income, coverage_region)
+save_csv(S2, "Supplementary_Table_S2.csv", SUPP)
 
 # 04. Models, dispersion diagnostics and HC3 inference -------------------------
 A <- A %>% mutate(log_fte = log(investigadores_fte_total_ref),
@@ -369,8 +370,8 @@ model_fit <- tibble(
   p_likelihood_ratio_for_GDP = c(NA_real_, pchisq(LR, 1, lower.tail = FALSE)),
   poisson_dispersion_full_model = pearson_dispersion(poisson_B)
 )
-save_csv(model_IRR, "Table_1_model_IRR.csv")
-save_csv(model_fit, "Table_1_model_fit.csv")
+save_csv(model_IRR, "Table_3_model_IRR.csv")
+save_csv(model_fit, "Table_3_model_fit.csv")
 
 # 05. National rankings and pairwise agreement -------------------------------
 pred <- as.numeric(predict(model_1, newdata = B, type = "response"))
@@ -398,7 +399,8 @@ rankings <- B %>% transmute(
   fewer_than_20_listed = annual_listed_authors < 20,
   researcher_FTE_below_1000 = researcher_FTE < 1000
 ) %>% arrange(rank_model_adjusted, iso3)
-save_csv(rankings, "Supplementary_Table_S2.csv", SUPP)
+S1 <- rankings
+save_csv(S1, "Supplementary_Table_S1.csv", SUPP)
 
 rank_agreement <- function(x, y, name) {
   tibble(comparison = name,
@@ -417,7 +419,7 @@ rank_comparison <- bind_rows(
   rank_agreement(rankings$rank_FTE_normalized, rankings$rank_model_adjusted,
                  "FTE-normalized vs model-adjusted")
 )
-save_csv(rank_comparison, "Table_2_rank_agreement.csv")
+save_csv(rank_comparison, "Table_1_rank_agreement.csv")
 
 # 06. Bootstrap ranking stability --------------------------------------------
 # Original 98 economies remain fixed when predicting across resampled fits.
@@ -449,13 +451,13 @@ bootstrap_stats <- tibble(
   bootstrap_rank_p95 = apply(boot_ranks, 1, quantile, probs = 0.95),
   bootstrap_top10_frequency = rowMeans(boot_ranks <= 10)
 )
-S3 <- rankings %>% select(
+S4 <- rankings %>% select(
   iso3, economy, income_group, annual_listed_authors, researcher_FTE,
   rank_model_adjusted, fewer_than_20_listed, researcher_FTE_below_1000
 ) %>% left_join(bootstrap_stats, by = "iso3") %>%
   mutate(bootstrap_rank_interval_width = bootstrap_rank_p95 - bootstrap_rank_p05) %>%
   arrange(rank_model_adjusted, iso3)
-save_csv(S3, "Supplementary_Table_S3.csv", SUPP)
+save_csv(S4, "Supplementary_Table_S4.csv", SUPP)
 
 # 07. Sensitivity analyses ----------------------------------------------------
 # FTE denominator restriction; full model on 85 economies in the published run.
@@ -536,7 +538,7 @@ sens_LOO <- bind_rows(
 )
 
 # Harmonize predictor labels across original scripts and models.
-S4 <- bind_rows(sens_FTE, sens_windows, sens_LOO) %>%
+S3 <- bind_rows(sens_FTE, sens_windows, sens_LOO) %>%
   mutate(
     predictor = recode(predictor,
       "id_pct_pib_ref" = "R&D expenditure (% GDP)",
@@ -545,10 +547,11 @@ S4 <- bind_rows(sens_FTE, sens_windows, sens_LOO) %>%
       "log2_GDP" = "GDP per capita PPP (doubling)")
   ) %>% select(analysis, scenario, model, excluded_ISO3, n_economies,
              predictor, coefficient, HC3_SE, IRR, CI95_lower, CI95_upper, p_value)
-save_csv(S4, "Supplementary_Table_S4.csv", SUPP)
+save_csv(S3, "Supplementary_Table_S3.csv", SUPP)
 
 # 08. Publication figures, saved separately for Inkscape ----------------------
-# Components for Figure 1 (A-B), Figure 2 (A-B), Figure 3.
+# Components for Figure 1 (A-B: ranking agreement),
+# Figure 2 (A-B: indicator availability), and Figure 3 (bootstrap stability).
 COLORS <- c("High income" = "#2455A4", "Upper middle income" = "#008C78",
             "Lower middle income" = "#E18A20", "Low income" = "#B34583")
 publication_theme <- function(base = 10.5) {
@@ -578,30 +581,6 @@ save_figure <- function(p, name, width, height) {
            error = function(e) message("PDF not generated for ", name, ": ", e$message))
 }
 
-coverage_plot <- function(d, title, levels) {
-  d <- d %>% filter(category != "Unclassified") %>%
-    mutate(category = factor(category, levels = levels),
-           label = sprintf("%.1f%%  (%d/%d)", coverage_B_pct,
-                           economies_sample_B, economies_master))
-  ggplot(d, aes(y = category)) +
-    geom_col(aes(x = 100), fill = "#E7ECF0", width = 0.56) +
-    geom_col(aes(x = coverage_B_pct), fill = "#126E82", width = 0.56) +
-    geom_text(aes(x = 103, label = label), hjust = 0, size = 3.2,
-              colour = "#273847", family = "Arial") +
-    scale_x_continuous(limits = c(0, 141), breaks = c(0, 25, 50, 75, 100),
-                       labels = function(x) paste0(x, "%"), expand = c(0, 0)) +
-    labs(title = title, x = "Economies with complete indicators (%)", y = NULL) +
-    publication_theme() +
-    theme(panel.grid.major.y = element_blank())
-}
-fig1A <- coverage_plot(coverage_income, "A   Income groups",
-                       c("Low income", "Lower middle income",
-                         "Upper middle income", "High income"))
-fig1B <- coverage_plot(coverage_region, "B   Geographical regions",
-                       c("Oceania", "Africa", "Americas", "Asia", "Europe"))
-save_figure(fig1A, "Figure_1A_income_coverage", 7.4, 3.35)
-save_figure(fig1B, "Figure_1B_region_coverage", 7.4, 3.35)
-
 ranking_scatter <- function(x, y, title, xlab, ylab) {
   rho <- cor(rankings[[x]], rankings[[y]], method = "spearman")
   dd <- rankings %>% mutate(income_group = factor(income_group, levels = names(COLORS)))
@@ -623,18 +602,42 @@ ranking_scatter <- function(x, y, title, xlab, ylab) {
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
     publication_theme() + theme(legend.key.width = grid::unit(1, "lines"))
 }
-fig2A <- ranking_scatter("rank_absolute", "rank_FTE_normalized",
+fig1A <- ranking_scatter("rank_absolute", "rank_FTE_normalized",
                          "A   Absolute vs FTE-normalized", "Absolute-count rank",
                          "FTE-normalized rank")
-fig2B <- ranking_scatter("rank_FTE_normalized", "rank_model_adjusted",
+fig1B <- ranking_scatter("rank_FTE_normalized", "rank_model_adjusted",
                          "B   FTE vs model-adjusted", "FTE-normalized rank",
                          "Model-adjusted rank")
-save_figure(fig2A, "Figure_2A_absolute_vs_FTE", 3.8, 4.65)
-save_figure(fig2B, "Figure_2B_FTE_vs_adjusted", 3.8, 4.65)
+save_figure(fig1A, "Figure_1A_absolute_vs_FTE", 3.8, 4.65)
+save_figure(fig1B, "Figure_1B_FTE_vs_adjusted", 3.8, 4.65)
 
-first10 <- S3 %>% arrange(rank_model_adjusted, iso3) %>%
+coverage_plot <- function(d, title, levels) {
+  d <- d %>% filter(category != "Unclassified") %>%
+    mutate(category = factor(category, levels = levels),
+           label = sprintf("%.1f%%  (%d/%d)", coverage_B_pct,
+                           economies_sample_B, economies_master))
+  ggplot(d, aes(y = category)) +
+    geom_col(aes(x = 100), fill = "#E7ECF0", width = 0.56) +
+    geom_col(aes(x = coverage_B_pct), fill = "#126E82", width = 0.56) +
+    geom_text(aes(x = 103, label = label), hjust = 0, size = 3.2,
+              colour = "#273847", family = "Arial") +
+    scale_x_continuous(limits = c(0, 141), breaks = c(0, 25, 50, 75, 100),
+                       labels = function(x) paste0(x, "%"), expand = c(0, 0)) +
+    labs(title = title, x = "Economies with complete indicators (%)", y = NULL) +
+    publication_theme() +
+    theme(panel.grid.major.y = element_blank())
+}
+fig2A <- coverage_plot(coverage_income, "A   Income groups",
+                       c("Low income", "Lower middle income",
+                         "Upper middle income", "High income"))
+fig2B <- coverage_plot(coverage_region, "B   Geographical regions",
+                       c("Oceania", "Africa", "Americas", "Asia", "Europe"))
+save_figure(fig2A, "Figure_2A_income_coverage", 7.4, 3.35)
+save_figure(fig2B, "Figure_2B_region_coverage", 7.4, 3.35)
+
+first10 <- S4 %>% arrange(rank_model_adjusted, iso3) %>%
   slice_head(n = 10) %>% mutate(panel = "Top 10 by adjusted rank")
-widest10 <- S3 %>% anti_join(first10, by = "iso3") %>%
+widest10 <- S4 %>% anti_join(first10, by = "iso3") %>%
   arrange(desc(bootstrap_rank_interval_width), iso3) %>%
   slice_head(n = 10) %>% mutate(panel = "10 widest rank intervals")
 selected <- bind_rows(first10, widest10) %>%
