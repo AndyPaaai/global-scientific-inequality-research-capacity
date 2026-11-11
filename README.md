@@ -1,6 +1,6 @@
 # National rankings of highly cited scientists depend on how countries are compared
 
-[![DOI](https://zenodo.org/badge/1448998565.svg)](https://doi.org/10.5281/zenodo.24027736)
+[![DOI](https://zenodo.org/badge/1448998565.svg)](https://doi.org/10.5281/zenodo.24123562)
 
 **Authors:**
 1. **Andy A. Acosta-Monterrosa**<sup>1</sup>
@@ -17,7 +17,7 @@
 **\*Corresponding author:** Sulaiman Kalokoh ([kalokohsulaiman@gmail.com](mailto:kalokohsulaiman@gmail.com))
 
 - **Repository:** [https://github.com/AndyPaaai/global-scientific-inequality-research-capacity](https://github.com/AndyPaaai/global-scientific-inequality-research-capacity)
-- **Zenodo DOI:** [https://doi.org/10.5281/zenodo.24027736](https://doi.org/10.5281/zenodo.24027736)
+- **Zenodo DOI:** [https://doi.org/10.5281/zenodo.24123562](https://doi.org/10.5281/zenodo.24123562)
 
 ---
 
@@ -215,11 +215,11 @@ The supplementary tables are located in `Supplementary Material/` and regenerate
 
 ## Citation
 
-[![DOI](https://zenodo.org/badge/1448998565.svg)](https://doi.org/10.5281/zenodo.24027736)
+[![DOI](https://zenodo.org/badge/1448998565.svg)](https://doi.org/10.5281/zenodo.24123562)
 
 If you use this code, data workflow, or supplementary material, please cite the accompanying manuscript, the archived Zenodo release, and the primary data sources (Ioannidis v9 2026, UNESCO UIS, and World Bank WDI):
 
-> Acosta-Monterrosa AA, Reyes-Duque JD, Kalokoh S, Lozada-Martinez ID. *National rankings of highly cited scientists depend on how countries are compared* [Data set and code]. Zenodo; 2026. DOI: [https://doi.org/10.5281/zenodo.24027736](https://doi.org/10.5281/zenodo.24027736). GitHub repository: [https://github.com/AndyPaaai/global-scientific-inequality-research-capacity](https://github.com/AndyPaaai/global-scientific-inequality-research-capacity)
+> Acosta-Monterrosa AA, Reyes-Duque JD, Kalokoh S, Lozada-Martinez ID. *National rankings of highly cited scientists depend on how countries are compared* [Data set and code]. Zenodo; 2026. DOI: [https://doi.org/10.5281/zenodo.24123562](https://doi.org/10.5281/zenodo.24123562). GitHub repository: [https://github.com/AndyPaaai/global-scientific-inequality-research-capacity](https://github.com/AndyPaaai/global-scientific-inequality-research-capacity)
 
 ---
 
